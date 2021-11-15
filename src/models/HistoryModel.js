@@ -1,0 +1,27 @@
+export default {
+  data: [
+    // node js data 불러와야
+    { keyword: '검색기록2', date: '11.05' },
+    { keyword: '검색기록1', date: '11.05'},
+    { keyword: '검색기록0', date: '11.05' },
+  ],
+
+  list() {
+    return Promise.resolve(this.data)
+  },
+  
+  add(keyword = '') {    
+    keyword = keyword.trim()
+    if (!keyword) return 
+    if (this.data.some(item => item.keyword === keyword)) {
+      this.remove(keyword)
+    }
+
+    const date = '12.31'
+    this.data = [{keyword, date}, ...this.data]
+  },
+  
+  remove(keyword) {
+    this.data = this.data.filter(item => item.keyword !== keyword)
+  }
+}
