@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="onSubmit">
+    <!-- <form @submit.prevent="onSubmit($event.target.value)"> -->
         <!-- <div id="app"
         v-on:keyup.down="selectValue('down')"
         v-on:keyup.up="selectValue('up')">
@@ -12,8 +12,10 @@
        v-on:keyup.up="selectValue('up')">
     <div class="search">
       <input class="s" placeholder="'#'을 써보세요"
-             v-on:input="searchQuery=$event.target.value"
-             v-model="searchQuery">
+            type="text"
+            v-on:input="searchQuery=$event.target.value"
+            @keyup.enter="onSubmit($event.target.value)"
+            >
              <!-- v-model="searchQuery" autofocus @keyup="onKeyup" -->
       <!-- <button type="reset" @click="onClickResetBtn" v-show="searchQuery.length" class="btn-reset"></button> -->
       <!-- link추가와 최근검색어 기능 넣을지? -->
@@ -26,14 +28,15 @@
         <li tabindex="-1"
             v-for="(el, index) in filterList" :key="index"
             v-on:click="changeValue(el.name)"
-            v-on:keyup.enter="selectValue('enter', el.name)">
+            v-on:keyup.enter="selectValue('enter', el.name)"
+            >
           <span>{{ el.name }}</span>
         </li>
       </ul>
     </div>
   </div>
 </div>
-    </form>
+    <!-- </form> -->
 </template>
 
 <script>
@@ -66,13 +69,22 @@ export default {
   //       }
   //     },
   methods: {
-    onSubmit(event){
+    onSubmit(hashname){
+      // hashname은 #이 안 붙어서 검색할수도있음(사용자가)
+      // 조건문으로 #이 없다면 넣어줌
+      if (hashname.indexOf('#') == -1) {
+        hashname= '#'.concat(hashname)
+      }
+      // 1. #hashname으로 구분된 것들을 axios.get으로 해당 hashdata받아옴
+      // 1-1. hashid만 받아오고 상세검색에서 선택되게 하는게 나으려나? 이게 낫겠다
+      // 2. 받아오고 링크로 넘겨주면서 해시 선택되게 할거임
+        axios.get(url[config]).then(res => {
+          console.log(config)
+      })
       // vuex로 보내거나
       // axios로 hashname db로 보내줌
       // axios.post()
-      console.log(this.searchQuery)
-      console.log(this.searchQuery.trim())
-      this.$emit('@submit',this.searchQuery.trim())
+      // this.$emit('@submit',this.searchQuery.trim())
       },
     //     onClickResetBtn(){
     //         this.searchQuery = ''
