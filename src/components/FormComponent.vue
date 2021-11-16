@@ -13,7 +13,7 @@
     <div class="search">
       <input class="s" placeholder="'#'을 써보세요"
              v-on:input="searchQuery=$event.target.value"
-             v-model="id">
+             v-model="searchQuery">
              <!-- v-model="searchQuery" autofocus @keyup="onKeyup" -->
       <!-- <button type="reset" @click="onClickResetBtn" v-show="searchQuery.length" class="btn-reset"></button> -->
       <!-- link추가와 최근검색어 기능 넣을지? -->
@@ -70,8 +70,7 @@ export default {
       // vuex로 보내거나
       // axios로 hashname db로 보내줌
       // axios.post()
-      console.log()
-      console.log(this.id)
+      console.log(this.searchQuery)
       console.log(this.searchQuery.trim())
       this.$emit('@submit',this.searchQuery.trim())
       },
