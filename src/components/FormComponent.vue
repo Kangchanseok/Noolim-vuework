@@ -74,13 +74,16 @@ export default {
       // 조건문으로 #이 없다면 넣어줌
       if (hashname.indexOf('#') == -1) {
         hashname= '#'.concat(hashname)
+        console.log(hashname)
       }
       // 1. #hashname으로 구분된 것들을 axios.get으로 해당 hashdata받아옴
       // 1-1. hashid만 받아오고 상세검색에서 선택되게 하는게 나으려나? 이게 낫겠다
       // 2. 받아오고 링크로 넘겨주면서 해시 선택되게 할거임
-        axios.get(url[config]).then(res => {
-          console.log(config)
-      })
+      // node axios쿼리문 추가하면 끝, 비동기처리해야함 -> async, await
+      //   axios.get(url[config]).then(res => {
+      //     console.log(config)
+      // })
+
       // vuex로 보내거나
       // axios로 hashname db로 보내줌
       // axios.post()
